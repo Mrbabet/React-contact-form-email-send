@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, Container, Heading, Textarea } from "@chakra-ui/react";
+import {
+  Button,
+  Container,
+  Heading,
+  Textarea,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import {
   FormControl,
   FormLabel,
@@ -7,13 +14,18 @@ import {
   Input,
 } from "@chakra-ui/react";
 
+import { sendEmail } from "../lib/api";
 const Home = () => {
+  const toast = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [touched, setTouched] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const values = { name, email, subject, message };
 
   const onBlur = (e) => {
     setTouched((prev) => ({ ...prev, [e.target.name]: true }));
@@ -36,12 +48,35 @@ const Home = () => {
   };
   const onSubmit = async () => {
     setIsLoading(true);
+
+    try {
+      await sendEmail(values);
+      setIsLoading(false);
+      setName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
+      setTouched({});
+      toast({
+        title: "Message sent.",
+        status: "success",
+        duration: 2000,
+        position: "top",
+      });
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.message);
+    }
   };
 
   return (
     <Container maxW={"450px"} mt={12}>
       <Heading>Home</Heading>
-
+      {error && (
+        <Text color="red.300" my={4} fontSize="xl">
+          {error}
+        </Text>
+      )}
       <FormControl isRequired isInvalid={touched.name && !name} mb={5}>
         <FormLabel>Name</FormLabel>
         <Input
