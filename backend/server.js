@@ -4,9 +4,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const emailConfig = require("./utils/sendEmail");
 
-console.log(process.env.EMAIL);
-console.log(process.env.EMAIL_PASS);
-
 const transporter = emailConfig.transporter;
 const options = emailConfig.options;
 
