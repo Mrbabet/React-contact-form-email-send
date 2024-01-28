@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/backend/server": {
+      "/api/sendemail": {
         target: "http://localhost:5000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/backend\/server/, ""),
+        rewrite: (path) => path.replace(/^\/api\/sendemail/, ""),
       },
     },
   },
