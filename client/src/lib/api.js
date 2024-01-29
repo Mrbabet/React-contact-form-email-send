@@ -6,6 +6,7 @@ export const sendEmail = async (data) => {
       "https://contact-form-server.onrender.com/api/sendemail",
       data
     );
+    console.log(response);
   } catch (error) {
     throw new Error("Failed to send message");
   }
