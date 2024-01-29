@@ -42,7 +42,7 @@ const generateEmailContent = (data) => {
   };
 };
 app.get("/", async (req, res) => {
-  console.log(res.body);
+  res.send("Hello World!");
 });
 app.post("/api/sendemail", async (req, res) => {
   const data = req.body;
