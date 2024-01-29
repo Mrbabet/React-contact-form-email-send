@@ -15,7 +15,9 @@ import {
 } from "@chakra-ui/react";
 
 import { sendEmail } from "../lib/api";
+import { useTranslation } from "react-i18next";
 const Home = () => {
+  const { t } = useTranslation();
   const toast = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -71,7 +73,7 @@ const Home = () => {
 
   return (
     <Container maxW={"450px"} mt={12}>
-      <Heading>Home</Heading>
+      <Heading>{t("heading.heading")}</Heading>
       {error && (
         <Text color="red.300" my={4} fontSize="xl">
           {error}
