@@ -44,18 +44,21 @@ const generateEmailContent = (data) => {
 app.get("/", async (req, res) => {
   res.send("Hello World!");
 });
-app.post("/api/sendemail", async (req, res) => {
-  const data = req.body;
+app.post(
+  "https://contact-form-server.onrender.com/api/sendemail",
+  async (req, res) => {
+    const data = req.body;
 
-  try {
-    await transporter.sendMail({
-      ...options,
-      ...generateEmailContent(data),
-      subject: data.subject,
-    });
+    try {
+      await transporter.sendMail({
+        ...options,
+        ...generateEmailContent(data),
+        subject: data.subject,
+      });
 
-    return res.status(200).json({ success: true });
-  } catch (err) {
-    return res.status(400).json({ message: err.message });
+      return res.status(200).json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ message: err.message });
+    }
   }
-});
+);
