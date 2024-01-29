@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 
 import { sendEmail } from "../lib/api";
+
 import { useTranslation } from "react-i18next";
 const Home = () => {
   const { t } = useTranslation();
